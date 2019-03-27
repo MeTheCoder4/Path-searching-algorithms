@@ -1,11 +1,15 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Map {
     private int[][] table;
     private int mapLength;
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-    public static final String ANSI_BLUE = "\u001B[34m";
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_WHITE = "\u001B[37m";
+    private static final String ANSI_BLUE = "\u001B[34m";
 
-    Map(int mapLength) {
+    public Map(int mapLength) {
         this.mapLength = mapLength;
         table = new int[mapLength][mapLength];
 
@@ -13,6 +17,29 @@ public class Map {
             for(int j = 0; j < mapLength; j++) {
                 table[i][j] = 0;
             }
+        }
+    }
+
+    public Map(String fileName, int mapLength) {
+        this.mapLength = mapLength;
+        table = new int[mapLength][mapLength];
+
+        String line;
+        int lineCounter = 0;
+        try(BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            while((line = reader.readLine()) != null) {
+                char[] lineAsCharArray = line.toCharArray();
+
+                for(int i = 0; i < mapLength; i++) {
+                    int number = Character.getNumericValue(lineAsCharArray[i]);
+                    table[lineCounter][i] = number;
+                }
+
+                lineCounter++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
         }
     }
 
