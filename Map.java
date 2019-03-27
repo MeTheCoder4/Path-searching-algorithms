@@ -4,7 +4,6 @@ public class Map {
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_WHITE = "\u001B[37m";
     public static final String ANSI_BLUE = "\u001B[34m";
-    private int newestX, newestY;
 
     Map(int mapLength) {
         this.mapLength = mapLength;
@@ -20,10 +19,10 @@ public class Map {
     public void print() {
         for(int i = 0; i < mapLength; i++) {
             for(int j = 0; j < mapLength; j++) {
-                if(table[i][j] == 1 && newestX == j && newestY == i)
-                    System.out.print(" " + ANSI_BLUE + table[i][j] + ANSI_BLUE + " ");
-                else if(table[i][j] == 1)
+                if(table[i][j] == 1)
                     System.out.print(" " + ANSI_RED + table[i][j] + ANSI_RED + " ");
+                else if(table[i][j] == 2)
+                    System.out.print(" " + ANSI_BLUE + table[i][j] + ANSI_BLUE + " ");
                 else
                     System.out.print(" " + ANSI_WHITE + table[i][j] + ANSI_WHITE + " ");
             }
@@ -34,8 +33,6 @@ public class Map {
 
     public void setValue(int x, int y, int value) {
         table[y][x] = value;
-        newestX = x;
-        newestY = y;
      }
 
     public int[][] getTable() {

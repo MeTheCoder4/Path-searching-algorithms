@@ -16,6 +16,13 @@ public class FloodFill {
         open.add(new Pair<>(initialY, initialX));
         visited[initialY][initialX] = true;
         this.map = map;
+
+        for(int i = 0; i < map.getMapLength(); i++) {
+            for(int j = 0; j < map.getMapLength(); j++) {
+                if(map.getTable()[i][j] == 2)
+                    visited[i][j] = true;
+            }
+        }
     }
     // Runs main algorithm loop, modifying map cells and displaying each modification
     public void run() throws InterruptedException {
@@ -29,7 +36,7 @@ public class FloodFill {
                     visited[neighbor.getKey()][neighbor.getValue()] = true;
                     map.setValue(neighbor.getValue(), neighbor.getKey(), 1);
                     map.print();
-                    Thread.sleep(200);
+                    Thread.sleep(70);
                 }
             }
         }
